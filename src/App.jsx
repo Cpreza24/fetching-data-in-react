@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useDebugValue, useDeferredValue } from 'react';
 import WeatherSearch from './components/WeatherSearch/WeatherSearch';
 import WeatherDetails from './components/WeatherDetails/WeatherDetails';
 import * as weatherService from './services/weatherService';
@@ -17,6 +17,19 @@ const App = () => {
     setWeather(newWeatherState);
   };
   console.log('State:', weather);
+
+  useEffect(() => {
+    const fetchDefaultData = async () => {
+      const data = await weatherService.show('New York');
+      const newWeatherState = {
+        location: data.location.name,
+        temperature: data.current.temp_f,
+        condition: data.current.condition.text,
+      };
+      setWeather(newWeatherState);
+    };
+    fetchDefaultData();
+  }, []);
 
   return (
     <main>
