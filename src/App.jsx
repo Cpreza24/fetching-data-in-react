@@ -1,10 +1,28 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import WeatherSearch from './components/WeatherSearch/WeatherSearch';
+import * as weatherService from './services/weatherService';
 import './App.css';
 
 const App = () => {
-  return <h1>Hello world!</h1>;
+  const [weather, setWeather] = useState({});
+
+  const fetchData = async (city) => {
+    const data = await weatherService.show(city);
+    const newWeatherState = {
+      location: data.location.name,
+      temperature: data.current.temp_f,
+      condition: data.current.condition.text,
+    };
+    setWeather(newWeatherState);
+  };
+  console.log('State:', weather);
+
+  return (
+    <main>
+      <h1>Weather API</h1>
+      <WeatherSearch fetchData={fetchData} />
+    </main>
+  );
 };
 
 export default App;
