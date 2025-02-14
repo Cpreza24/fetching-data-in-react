@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import WeatherSearch from './components/WeatherSearch/WeatherSearch';
+import WeatherDetails from './components/WeatherDetails/WeatherDetails';
 import * as weatherService from './services/weatherService';
 import './App.css';
 
@@ -21,6 +22,7 @@ const App = () => {
     <main>
       <h1>Weather API</h1>
       <WeatherSearch fetchData={fetchData} />
+      <WeatherDetails weather={weather} />
     </main>
   );
 };
